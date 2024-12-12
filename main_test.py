@@ -1,9 +1,11 @@
 import mock
 import builtins
+
+from pytest import CaptureFixture
 import main
 
 
-def test_q01(capfd):
+def test_q01(capfd: CaptureFixture[str]):
     input_outputexpected = {
         '121':'True\n',
         '-121':'False\n',
@@ -57,7 +59,7 @@ def test_q03(capfd):
     }
     for k, v in input_output.items():
         with mock.patch.object(builtins, 'input', lambda _: k):
-            main.q1()
+            main.q3()
             out, err = capfd.readouterr()
             assert out == v
 
@@ -76,6 +78,6 @@ def test_q04(capfd, monkeypatch):
     }
     for k,v in input_output.items():
         monkeypatch.setitem(__builtins__, 'input', make_multiple_inputs(k.split(',')))
-        main.q2()
+        main.q4()
         out, _ = capfd.readouterr()
         assert out == v
